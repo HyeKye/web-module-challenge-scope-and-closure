@@ -112,11 +112,11 @@ For example: invoking getInningScore(inning) might return this object:
   */
 
 
-function getInningScore(CB) {
-  let totalScore = {};
-  totalScore.Home = 0 + CB();
-  totalScore.Away = 0 + CB();
-  return totalScore;
+function getInningScore(CB){
+  return {
+    Home: CB(),
+    Away: CB()
+  }
 }
 
 
@@ -160,9 +160,25 @@ Use the scoreboard function below to do the following:
   "This game will require extra innings: Away 10 - Home 10"
 ] */
 // NOTE: There is no test associated with this code; if your output matches the given example, consider it complete!
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
-}
+function scoreboard(getCB, inningCB, innings){
+  const scoreArr = [];
+   let homeScore = 0;
+   let awayScore = 0;
+  const currentInning = getCB(inningCB);
+  for (let i = 0; i < innings; i++){
+    const currentInning = getCB(inningCB);
+    homeScore = homeScore + currentInning.Home
+    awayScore = awayScore + currentInning.Away
+    scoreArr.push(`Inning ${i + 1}: Away ${currentInning.Away} - Home ${currentInning.Home}`);
+    }
+    if (homeScore === awayScore){
+      scoreArr.push(`This game will require extra innnings: Away ${currentInning.Away} - Home ${currentInning.Home}`)
+    } else {
+      scoreArr.push(`Final Score: Away ${awayScore} - Home ${homeScore}`);
+    }
+    return scoreArr;
+  }
+  console.log(scoreboard(getInningScore, inning, 9));
 
 
 
